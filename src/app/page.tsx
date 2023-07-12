@@ -13,7 +13,7 @@ export default function Index() {
   return (
     <main className={styles.main}>
       <div>
-        <SideMenu router={router} />
+        <SideMenu />
       </div>
       <Container
         maxWidth={false}

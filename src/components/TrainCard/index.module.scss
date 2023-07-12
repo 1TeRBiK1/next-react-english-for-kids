@@ -11,8 +11,6 @@
   &:hover {
     box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.75);
   }
-
-  
 }
 
 @keyframes cardFlip {
@@ -36,16 +34,19 @@
   border: 10px solid #fff;
   &.flipped {
     left: -3%;
-    top: -3%;
+    top: -4%;
     transform: rotateY(180deg);
     transition: 0.6s;
     transform-style: preserve-3d;
 
     position: relative;
-
   }
   animation: cardFlip 0.01s;
 
+  &.game {
+    height: 100%;
+    top: 50%;
+  }
 }
 
 .cardTextStyle {

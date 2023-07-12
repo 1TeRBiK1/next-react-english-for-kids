@@ -9,33 +9,29 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 
-//drawer elements used
 import Drawer from "@mui/material/Drawer";
 import CloseIcon from "@mui/icons-material/Close";
 import Divider from "@mui/material/Divider";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import cardsConfig from "@/utils/cardsConfig";
-import { AppRouterInstance } from "next/dist/shared/lib/app-router-context";
-
-//search as JSX
+import { FormControlLabel, Switch } from "@mui/material";
+import { useRouter } from "next/navigation";
 
 interface ISideMenuProps {
-  router: AppRouterInstance;
+  isGameMode?: boolean;
+  toggleSwitch?: () => void;
 }
 
-const SideMenu: React.FC<ISideMenuProps> = ({ router }) => {
-  /*
-  react useState hook to save the current open/close state of the drawer,
-  normally variables dissapear afte the function was executed
-  */
+const SideMenu: React.FC<ISideMenuProps> = ({ isGameMode, toggleSwitch }) => {
+  const router = useRouter();
+
   const [open, setState] = useState(false);
 
-  /*
-  function that is being called every time the drawer should open or close,
-  the keys tab and shift are excluded so the user can focus between
-  the elements with the keys
-  */
+  const background = Boolean(isGameMode)
+    ? "linear-gradient(180deg,#fd6a63,#feb46b 100%,#fff 0,#fff)"
+    : "linear-gradient(180deg, #009aac, #00be83 100%,#fff 0,#fff)";
+
   //@ts-ignore
   const toggleDrawer = (open) => (event) => {
     if (
@@ -44,7 +40,6 @@ const SideMenu: React.FC<ISideMenuProps> = ({ router }) => {
     ) {
       return;
     }
-    //changes the function state according to the value of open
     setState(open);
   };
 
@@ -52,8 +47,7 @@ const SideMenu: React.FC<ISideMenuProps> = ({ router }) => {
     <AppBar
       position="static"
       style={{
-        background:
-          "linear-gradient(180deg, #009aac, #00be83 100%,#fff 0,#fff)",
+        background,
       }}
     >
       <Container maxWidth="xl" disableGutters={true}>
@@ -117,7 +111,16 @@ const SideMenu: React.FC<ISideMenuProps> = ({ router }) => {
           </Drawer>
 
           <Typography variant="h6" sx={{ fontWeight: 700 }}>
-            English for kids
+            {isGameMode !== undefined ? (
+              <FormControlLabel
+                value="gameMode"
+                control={<Switch color="primary" onClick={toggleSwitch} />}
+                label="Game mode"
+                labelPlacement="start"
+              />
+            ) : (
+              <span>English For Kids</span>
+            )}
           </Typography>
         </Toolbar>
       </Container>

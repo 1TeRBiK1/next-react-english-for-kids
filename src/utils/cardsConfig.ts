@@ -1,16 +1,6 @@
-export interface ICard {
-  word: string;
-  translation: string;
-  image: string;
-  audioSrc: string;
-}
+import { ICardsConfig } from "@/types/cards";
 
-export interface ICardsConfig {
-  categories: string[];
-  cards: ICard[][];
-}
-
-export const cardsConfig = {
+export const cardsConfig: ICardsConfig = {
   categories: [
     { url: "actionA", name: "Action (set A)" },
     { url: "actionB", name: "Action (set B)" },

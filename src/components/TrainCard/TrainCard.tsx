@@ -1,13 +1,17 @@
+"use client";
 import { Card, CardMedia, CardContent, Typography } from "@mui/material";
 import styles from "./index.module.scss";
 import AutorenewIcon from "@mui/icons-material/Autorenew";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface ITrainCardProps {
   word: string;
   translation: string;
   image: string;
   audioSrc: string;
+  isGameMode: boolean;
+  isStartGame: boolean;
+  handleGameCardClick: (audioSrc: string) => void;
 }
 
 const TrainCard: React.FC<ITrainCardProps> = ({
@@ -15,6 +19,9 @@ const TrainCard: React.FC<ITrainCardProps> = ({
   image,
   audioSrc,
   word,
+  isGameMode,
+  isStartGame,
+  handleGameCardClick,
 }) => {
   const [isFlipped, setIsFlipped] = useState(false);
 
@@ -29,8 +36,12 @@ const TrainCard: React.FC<ITrainCardProps> = ({
   };
 
   const handleCardClick = () => {
-    const audioElement = new Audio(`/${audioSrc}`);
-    audioElement.play();
+    if (!isStartGame) {
+      const audioElement = new Audio(`/${audioSrc}`);
+      audioElement.play();
+    } else {
+      handleGameCardClick(audioSrc);
+    }
   };
 
   return (
@@ -42,26 +53,28 @@ const TrainCard: React.FC<ITrainCardProps> = ({
       <CardMedia
         className={`${styles.cardImageStyle} ${
           isFlipped ? styles.flipped : ""
-        }`}
+        } ${isGameMode ? styles.game : ""}`}
         image={`/${image}`}
       />
-      <CardContent className={styles.cardTextStyle}>
-        <Typography
-          variant="h6"
-          component="div"
-          className={styles.cardNameStyle}
-        >
-          {isFlipped ? translation : word}
-        </Typography>
-        <Typography
-          variant="h6"
-          component="div"
-          className={styles.reverse}
-          onClick={() => {
-            handleFlip();
-          }}
-        />
-      </CardContent>
+      {isGameMode ? null : (
+        <CardContent className={styles.cardTextStyle}>
+          <Typography
+            variant="h6"
+            component="div"
+            className={styles.cardNameStyle}
+          >
+            {isFlipped ? translation : word}
+          </Typography>
+          <Typography
+            variant="h6"
+            component="div"
+            className={styles.reverse}
+            onClick={() => {
+              handleFlip();
+            }}
+          />
+        </CardContent>
+      )}
       <audio src={audioSrc} />
     </Card>
   );

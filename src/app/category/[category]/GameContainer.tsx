@@ -1,9 +1,10 @@
-import TrainCard from "@/components/TrainCard/TrainCard";
 import { useState, useEffect } from "react";
 import { Button, Container } from "@mui/material";
 import { ICard } from "@/types/cards";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import StarContainer from "./StarContainer";
+import TrainCard from "@/components/Cards/Train/TrainCard";
 
 export interface IGameContainerProps {
   cards: ICard[];
@@ -45,7 +46,7 @@ const GameContainer: React.FC<IGameContainerProps> = ({
 
   const playAudioAsync = (audioSrc: string) => {
     setTimeout(() => playAudio(audioSrc), 500);
-  }
+  };
 
   const handleGameCardClick = (audioSrc: string) => {
     if (isStartGame) {
@@ -98,22 +99,16 @@ const GameContainer: React.FC<IGameContainerProps> = ({
           flexDirection: "row",
           display: "flex",
           flexWrap: "wrap",
+          marginTop: 3,
+          minHeight: 50,
         }}
       >
-        {answers.map((answer, index) => (
-          <Image
-            key={index}
-            alt="star"
-            width={50}
-            height={50}
-            src={answer ? "/assets/img/star-win.svg" : "/assets/img/star.svg"}
-          />
-        ))}
+        <StarContainer answers={answers} />
       </Container>
       <Container
         maxWidth={false}
         sx={{
-          justifyContent: "center",
+          justifyContent: "space-around",
           flexDirection: "row",
           display: "flex",
           flexWrap: "wrap",
@@ -121,7 +116,7 @@ const GameContainer: React.FC<IGameContainerProps> = ({
       >
         {isEndGame ? (
           <Image
-            width={300}
+            width={400}
             height={300}
             alt="End Game"
             src={isWin ? "/assets/img/success.jpg" : "/assets/img/failure.jpg"}

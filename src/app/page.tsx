@@ -1,9 +1,9 @@
 "use client";
 import styles from "./page.module.css";
-import SideMenu from "@/components/SideMenu";
+import SideMenu from "@/components/SideMenu/SideMenu";
 import { useRouter } from "next/navigation";
 import cardsConfig from "@/utils/cardsConfig";
-import MainCard from "@/components/MainCard/MainCard";
+import MainCard from "@/components/Cards/Main/MainCard";
 import Container from "@mui/material/Container";
 import { Button } from "@mui/material";
 
@@ -18,7 +18,7 @@ export default function Index() {
       <Container
         maxWidth={false}
         style={{
-          justifyContent: "center",
+          justifyContent: "space-around",
           flexDirection: "row",
           display: "flex",
           flexWrap: "wrap",

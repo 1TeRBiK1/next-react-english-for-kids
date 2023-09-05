@@ -1,9 +1,7 @@
 "use client";
-import SideMenu from "@/components/SideMenu";
-import TrainCard from "@/components/TrainCard/TrainCard";
+import SideMenu from "@/components/SideMenu/SideMenu";
 import { ICard } from "@/types/cards";
-import { useState, useEffect } from "react";
-import { Button, Container } from "@mui/material";
+import { useState } from "react";
 import GameContainer from "./GameContainer";
 
 interface ISwitcherContainerProps {
